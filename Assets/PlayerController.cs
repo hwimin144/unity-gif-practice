@@ -4,6 +4,8 @@ public class PlayerController : MonoBehaviour
 
 {
     public float speed = 0.01f;
+    public GameObject BulletPrefab;
+    public float BulletSpeed = 1000f;
     
 
     
@@ -41,6 +43,14 @@ public class PlayerController : MonoBehaviour
         {
             this.transform.Translate(-speed, 0, 0);
         }
+
+            if(Input.GetKeyDown(KeyCode.Space))
+            {
+                GameObject Bullet = Instantiate(BulletPrefab);
+                Bullet.transform.position = transform.position;
+                Bullet.GetComponent<Rigidbody2D>().AddForce(Vector2.up * BulletSpeed);
+            }
+        
     }
 }
 
