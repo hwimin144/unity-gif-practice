@@ -5,8 +5,19 @@ public class people : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        Human Alexis = new Adult("alexis", 23, 155);
+        Adult adult_alexis = Alexis as Adult;
 
-       
+        if (adult_alexis     == null)
+        {
+            Debug.Log("Failure~!");
+        }
+        else
+        {
+            Debug.Log("success!!!");
+        }
+
+
     }
 }
 class Adult : Human

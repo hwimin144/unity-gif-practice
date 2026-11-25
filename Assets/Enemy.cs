@@ -1,12 +1,26 @@
+
+
+
+
+
 using UnityEngine;
 
 public class Enemy : MonoBehaviour
 {
-    float health = 50f;
+    public float health = 50f;
 
-    private void TakeDamege(int value)
+    // 총알에 맞았을 때 체력 감소
+    public void TakeDamage(int value)
     {
         health -= value;
+
+        Debug.Log(gameObject.name + " Health : " + health);
+
+        if (health <= 0)
+        {
+            Debug.Log(gameObject.name + " Dead!");
+            Destroy(gameObject);
+        }
     }
 
     public float GetHealth()
@@ -14,21 +28,10 @@ public class Enemy : MonoBehaviour
         return health;
     }
 
-    public void OnCollisionEnter2D(Collision2D collision)
+    // 플레이어와 충돌했을 때
+    public virtual void HitPlayer(Player player)
     {
-        TakeDamege(10);
-        Debug.Log("Health : " + health);
-        
-    }
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        player.TakeDamage(20);
+        Destroy(gameObject);
     }
 }

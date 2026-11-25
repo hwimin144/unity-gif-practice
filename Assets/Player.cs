@@ -1,40 +1,37 @@
+
+
+
 using UnityEngine;
 
 public class Player : MonoBehaviour
 {
-    float health = 100.0f;
+    float health = 100f;
 
-    void TakeDamage(int value)
+    public void TakeDamage(int value)
     {
         health -= value;
-        if (health <= 0) ;
+
+        Debug.Log("Player Health : " + health);
+
+        if (health <= 0)
         {
             Die();
         }
-
-        Debug.Log("Player Health :" + health);
     }
 
-
-    void Die()
+    public void Die()
     {
-        Destroy(this.gameObject);
+        Debug.Log("Player Dead!");
+        Destroy(gameObject);
     }
 
-    public void OnCollisionEnter2D(Collision2D collision)
+    private void OnCollisionEnter2D(Collision2D collision)
     {
-        TakeDamage(20);
-        Destroy(collision.gameObject);
-    }
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-        
-    }
+        Enemy enemy = collision.gameObject.GetComponent<Enemy>();
 
-    // Update is called once per frame
-    void Update()
-    {
-        
+        if (enemy != null)
+        {
+            enemy.HitPlayer(this);
+        }
     }
 }
